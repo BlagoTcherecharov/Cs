@@ -1,0 +1,107 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Zadacha1
+{
+    class Point
+    {
+        private int x, y;
+
+        public Point()
+        {
+            x = y = 0;
+        }
+        
+        public Point(Point prect, Point point, int height, int width)
+        {
+            if (prect.x <= point.x && prect.x + width >= point.x) // 5 <= 6 && 5 + 3 >= 6
+            {
+                if (prect.y >= point.y && prect.y - height <= point.y) // 5 >= 4 && 5 - 3 <= 4
+                {
+                    Console.WriteLine("Point is in rectangle");
+                }
+                else
+                    Console.WriteLine("Point is not in rectangle");
+            }
+            else
+                Console.WriteLine("Point is not in rectangle");
+        }
+        
+        public int X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        public int Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+    }
+
+    class Rectangle
+    {
+        private int height, width, x, y;
+
+        public Rectangle()
+        {
+            height = width = 0;
+        }
+
+        public Rectangle(int height, int width)
+        {
+            this.height = height;
+            this.width = width;
+        }
+
+        public int Height
+        {
+            get { return height; }
+        }
+
+        public int Width
+        {
+            get { return width; }
+        }
+    }
+
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Point point = new Point();
+            Point prect = new Point();
+            Rectangle rect = new Rectangle();
+
+            int height, width;
+
+            Console.Write("Enter x for point: ");
+            point.X = int.Parse(Console.ReadLine());
+            Console.Write("Enter y for point: ");
+            point.Y = int.Parse(Console.ReadLine());
+            Console.Write("Enter x for rectangle: ");
+            prect.X = int.Parse(Console.ReadLine());
+            Console.Write("Enter y for rectangle: ");
+            prect.Y = int.Parse(Console.ReadLine());
+
+
+            Console.Write("Enter height for rectangle: ");
+            height = int.Parse(Console.ReadLine());
+            Console.Write("Enter width for rectangle: ");
+            width = int.Parse(Console.ReadLine());
+
+
+            rect = new Rectangle(height, width);
+
+            height = rect.Height;
+            width = rect.Width;
+
+            new Point(prect, point, height, width);
+        }
+    }
+}
