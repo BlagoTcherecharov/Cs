@@ -1,0 +1,79 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Xml;
+
+
+
+namespace Zadacha3
+{
+    class Person
+    {
+        private string name, lastname;
+        private long number;
+
+        public Person()
+        {
+            name = lastname = " ";
+            number = 0;
+        }
+
+        public Person(string name, string lastname, long number)
+        {
+            this.name = name;
+            this.lastname = lastname;
+            this.number = number;
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public string LastName
+        {
+            get { return lastname; }
+            set { lastname = value; }
+        }
+
+        public long Number
+        {
+            get { return number; }
+            set { number = value; }
+        }
+
+        public void Output(Person person)
+        {
+            Console.WriteLine("Name is " + person.Name + " " + person.LastName + " and phone number is " + person.Number);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Person person1 = new Person();
+            Person person2 = new Person();
+
+            Console.Write("Enter name for first person: ");
+            string name = Console.ReadLine();
+            Console.Write("Enter last name for first person: ");
+            string lastName = Console.ReadLine();
+            Console.Write("Enter phone number for first person: ");
+            long number = Int64.Parse(Console.ReadLine());
+
+            person1 = new Person(name, lastName, number);
+
+            Console.Write("Enter name for second person: ");
+            person2.Name = Console.ReadLine();
+            Console.Write("Enter last name for second person: ");
+            person2.LastName = Console.ReadLine();
+            Console.Write("Enter phone number for second person: ");
+            person2.Number = Int64.Parse(Console.ReadLine());
+
+            person1.Output(person1);
+            person2.Output(person2);
+        }
+    }
+}
