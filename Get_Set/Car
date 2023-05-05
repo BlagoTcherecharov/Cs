@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Csharp1
+{
+    class Program
+    {
+        class Car
+        {
+            private string mark, color, number;
+
+            public Car()
+            {
+                mark = color = number = " ";
+            }
+
+            public Car(string mark, string color, string number)
+            {
+                this.mark = mark;
+                this.color = color;
+                this.number = number;
+            }
+
+            public string Mark
+            {
+                get { return mark; }
+                set { mark = value; }
+            }
+
+            public string Color
+            {
+                get { return color; }
+                set { color = value; }
+            }
+
+            public string Number
+            {
+                get { return number; }
+                set { number = value; }
+            }
+
+            public void Output()
+            {
+                Console.WriteLine("The car is a " + color + " " + mark + " with registration number " + number);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Car car1 = new Car();
+            Car car2 = new Car();
+
+            string mark, color, number;
+
+            Console.Write("Enter car mark: ");
+            car1.Mark = Console.ReadLine();
+
+            Console.Write("Enter car color: ");
+            car1.Color = Console.ReadLine();
+
+            Console.Write("Enter car number: ");
+            car1.Number = Console.ReadLine();
+
+
+            Console.Write("Enter car mark: ");
+            mark = Console.ReadLine();
+
+            Console.Write("Enter car color: ");
+            color = Console.ReadLine();
+
+            Console.Write("Enter car number: ");
+            number = Console.ReadLine();
+
+            car2 = new Car(mark, color, number);
+
+            car1.Output();
+            car2.Output();
+        }
+    }
+}
