@@ -1,0 +1,135 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Xml;
+
+
+
+namespace Dopolnitelno4
+{
+    public class Book
+    {
+        private string title, author, publisher;
+        private int publishingYear; 
+        private long isbn;
+
+        public Book()
+        {
+            title = author = publisher = string.Empty;
+            publishingYear = 0;
+            isbn = 0;
+        }
+        public Book(string title, string author, string publisher, int publishingYear, long isbn)
+        {
+            this.title = title;
+            this.author = author;
+            this.publisher = publisher;
+            this.publishingYear = publishingYear;
+            this.isbn = isbn;
+        }
+
+        public string Title
+        {
+            get { return title; }
+        }
+        public string Author
+        {
+            get { return author; }
+        }
+        public string Publisher
+        {
+            get { return publisher; }
+        }
+        public int PublishingYear
+        {
+            get { return publishingYear; }
+        }
+        public long Isbn
+        {
+            get { return isbn; }
+        }
+    }
+
+    public class Library
+    {
+        private string name;
+        private List<Book> books;
+
+        public Library()
+        {
+            name = " ";
+            books = new List<Book>();
+        }
+        public Library(string name)
+        {
+            this.name = name;
+            books = new List<Book>();
+        }
+
+        public void add_book(Book book)
+        {
+            books.Add(book);
+        }
+
+        public void remove_book(Book book)
+        {
+            books.Remove(book);
+        }
+
+        public List<Book> search_author(string author)
+        {
+            return books.FindAll(book => book.Author == author);
+        }
+
+        public void Output(Book book)
+        {
+            Console.WriteLine("Title: " + book.Title + "\nAuthor:" + book.Author + "\nPublisher: " + book.Publisher + "\nYear Published: " + book.PublishingYear + "\nISBN: " + book.Isbn);
+        }
+
+        public List<Book> Books
+        {
+            get { return books; }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Library library = new Library();
+
+            Console.Write("Enter name of library: ");
+            string name = Console.ReadLine();
+            library = new Library(name);
+
+            Book[] books = new Book[3];
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write("Enter name of the book: ");
+                string title = Console.ReadLine();
+                Console.Write("Enter name of the author: ");
+                string author = Console.ReadLine();
+                Console.Write("Enter name of the publisher: ");
+                string publisher = Console.ReadLine();
+                Console.Write("Enter publishing year of the book: ");
+                int publishingYear = int.Parse(Console.ReadLine());
+                Console.Write("Enter isbn of the book: ");
+                long isbn = Int64.Parse(Console.ReadLine());
+
+                books[i] = new Book(title, author, publisher, publishingYear, isbn);
+                library.add_book(books[i]);
+            }
+
+            foreach (Book book in library.search_author("Stephen King"))
+            {
+                library.remove_book(book);
+            }
+
+            foreach (Book book in library.Books)
+            {
+                library.Output(book);
+            }
+        }
+    }
+}
