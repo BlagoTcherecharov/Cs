@@ -1,0 +1,114 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Xml;
+
+
+
+namespace Dopolnitelno2
+{
+    class Student
+    {
+        private string? name, midname, lastname, speciality, university, email, phone;
+        private int year;
+
+        static int objCount = 0;
+
+        public Student()
+        {
+            name = midname = lastname = speciality = university = email = phone = null;
+            year = 0;
+            objCount++;
+        }
+
+        public Student(string name, string midname, string lastname)
+        {
+            this.name = name;
+            this.midname = midname;
+            this.lastname = lastname;
+        }
+
+        public Student(Student student, string speciality, string university, string email, string phone, int year)
+        {
+            name = student.Name;
+            midname = student.MidName;
+            lastname = student.LastName;
+            this.speciality = speciality;
+            this.university = university;
+            this.email = email;
+            this.phone = phone;
+            this.year = year;
+        }
+
+        public string? Name
+        {
+            get { return name; }
+        }
+        public string? MidName
+        {
+            get { return midname; }
+        }
+        public string? LastName
+        {
+            get { return lastname; }
+        }
+
+        public void Output(Student student)
+        {
+            Console.WriteLine(student.Name + " " + student.MidName + " " + student.LastName + " studies " + speciality + " at " + university + " university and it's his " + year + " year");
+            Console.WriteLine("Email and phone number are " + email + " " + phone);
+            Console.WriteLine("Number of objects: " + objCount);
+        }
+    }
+
+    class StudentTest
+    {
+        private static List<Student> students = new List<Student>();
+        public static void NewStudents()
+        {
+            students.Add(new Student("Ivan", "Ivanov", "Ivanov"));
+            students.Add(new Student("Georgi", "Georgiev", "Georgiev"));
+        }
+        public static List<Student> GetStudents()
+        {
+            return students;
+        }
+
+        public static void Output()
+        {
+            foreach (Student student in students)
+            {
+                Console.WriteLine(student.Name + " " + student.MidName + " " + student.LastName);
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Student student = new Student();
+
+            Console.Write("Enter full name: ");
+            string? fullname = Console.ReadLine();
+            string[] name = fullname!.Split(" ");
+
+            student = new Student(name[0], name[1], name[2]);
+
+            Console.Write("Enter speciality, university, email and phone number: ");
+            string? fullinfo = Console.ReadLine();
+            string[] info = fullinfo!.Split(" ");
+
+            Console.Write("Enter school year: ");
+            int year = int.Parse(Console.ReadLine() ?? string.Empty);
+
+            student = new Student(student, info[0], info[1], info[2], info[3], year);
+
+            student.Output(student);
+
+
+            StudentTest.NewStudents();
+            StudentTest.Output();
+        }
+    }
+}
