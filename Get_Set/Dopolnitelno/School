@@ -1,0 +1,65 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Xml;
+
+
+
+namespace Dopolnitelno5
+{
+    class School
+    {
+        private string class_identificator, student_name, teacher_subject, subject_name;
+        private long student_number;
+        private int subject_num_lessons, subject_num_practice;
+
+        public School()
+        {
+            class_identificator = student_name = teacher_subject = subject_name = null;
+            student_number = 0;
+            subject_num_lessons = subject_num_practice = 0;
+        }
+        public School(string class_identificator, string student_name, string teacher_subject, string subject_name, int subject_num_lessons, int subject_num_practice, long student_number)
+        {
+            this.class_identificator = class_identificator;
+            this.student_name = student_name;
+            this.teacher_subject = teacher_subject;
+            this.subject_name = subject_name;
+            this.subject_num_lessons = subject_num_lessons;
+            this.subject_num_practice = subject_num_practice;
+            this.student_number = student_number;
+        }
+
+        public void Output()
+        {
+            Console.WriteLine($"Class indentificator {class_identificator}\nStudent name {student_name}\nStudent number {student_number}\nTeacher subject {teacher_subject}\nSubject name {subject_name}\nSubject number of lessons {subject_num_lessons}\nSubject number of practice {subject_num_practice}");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            School school = new School();
+
+            Console.Write("Enter class idenficator: ");
+            string class_identificator = Console.ReadLine();
+            Console.Write("Enter name of student: ");
+            string student_name = Console.ReadLine();
+            Console.Write("Enter number of student: ");
+            long student_number = Int64.Parse(Console.ReadLine());
+            Console.Write("Enter subject of teacher: ");
+            string teacher_subject = Console.ReadLine();
+            Console.Write("Enter name of subject: ");
+            string subject_name = Console.ReadLine();
+            Console.Write("Enter number of lessons of the subject: ");
+            int subject_num_lessons = int.Parse(Console.ReadLine());
+            Console.Write("Enter number of practices of the subject: ");
+            int subject_num_practice = int.Parse(Console.ReadLine());
+
+            school = new School(class_identificator, student_name, teacher_subject, subject_name, subject_num_lessons, subject_num_practice, student_number);
+
+            school.Output();
+        }
+    }
+}
