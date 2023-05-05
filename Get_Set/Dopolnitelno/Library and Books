@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace Dopolnitelno4
 {
-    public class Book
+    class Book
     {
         private string title, author, publisher;
         private int publishingYear; 
@@ -50,7 +50,7 @@ namespace Dopolnitelno4
         }
     }
 
-    public class Library
+    class Library
     {
         private string name;
         private List<Book> books;
