@@ -1,0 +1,59 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Xml;
+
+namespace Car
+{
+    class Person
+    {
+        protected string name, EGN, id_card;
+
+        public void InputPerson()
+        {
+            Console.Write("Enter name of person: ");
+            name = Console.ReadLine();
+            Console.Write("Enter EGN: ");
+            EGN = Console.ReadLine();
+            Console.Write("Enter card id: ");
+            id_card = Console.ReadLine();
+        }
+    }
+
+    class Student : Person
+    {
+        private string speciality, group, faculty_num;
+
+        public void InputStudent()
+        {
+            Console.Write("Enter speciality: ");
+            speciality = Console.ReadLine();
+            Console.Write("Enter group: ");
+            group = Console.ReadLine();
+            Console.Write("Enter faculty number: ");
+            faculty_num = Console.ReadLine();
+        }
+
+        public void Output()
+        {
+            Console.WriteLine("\nStudent name: " + name);
+            Console.WriteLine("Student EGN: " + EGN);
+            Console.WriteLine("Student card id: " + id_card);
+            Console.WriteLine("Student speciality: " + speciality);
+            Console.WriteLine("Student group: " + group);
+            Console.WriteLine("Student faculty number: " + faculty_num);
+        }
+    }
+
+    public class Inheritence
+    {
+        public static void Main(string[] args)
+        {
+            Student student = new Student();
+
+            student.InputPerson();
+            student.InputStudent();
+            student.Output();
+        }
+    }
+}
