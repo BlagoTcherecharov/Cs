@@ -2,9 +2,6 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
-using Interaction;
-using Person1;
-using Firm1;
 
 namespace Bank
 {
