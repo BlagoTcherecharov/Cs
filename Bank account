@@ -1,16 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Xml;
 
-namespace Inheritence
+
+namespace Bank
 {
     interface IInteraction
     {
         void Deposit();
         void Withdraw();
-        void BalanceInfo();
     }
 
     class BankAccount
@@ -36,14 +35,108 @@ namespace Inheritence
         }
     }
 
-    class Firm : BankAccount
+    class Firm : BankAccount, IInteraction
     {
+        private bool error = true;
+        private int choice;
+        private double deposit, withdraw;
+        private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
+        public void Deposit()
+        {
+            while (choice < 1 && choice > 3)
+            {
+                Console.WriteLine("Where do you want to deposit your money ");
+                Console.WriteLine("1. Credit balance");
+                Console.WriteLine("2. Debit balance");
+                Console.WriteLine("3. Mortgage balance");
+                choice = int.Parse(Console.ReadLine());
 
+                Console.Clear();
+
+                if (choice < 1 && choice > 3)
+                {
+                    error = false;
+                    Console.WriteLine("Error, choice isn't valid!");
+                }
+                else
+                {
+                    error = true;
+                }
+            }
+
+            Console.WriteLine("How much money do you want to deposit in your" + name_choice[choice - 1] + "today? ");
+            deposit = Convert.ToDouble(Console.ReadLine());
+            
+            switch (choice)
+            {
+                
+                case 1:
+                    credit_acc += deposit; break;
+                case 2:
+                    deposit_acc += deposit; break;
+                case 3:
+                    mortgage_acc += deposit; break;
+            }
+        }
+        public void Withdraw()
+        {
+            Console.WriteLine("How much money do you want to withdraw today? ");
+            withdraw = Convert.ToDouble(Console.ReadLine());
+
+            deposit_acc -= withdraw;
+        }
     }
 
     class Person : BankAccount
     {
+        private bool error = true;
+        private int choice;
+        private double deposit, withdraw;
+        private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
+        public void Deposit()
+        {
+            while (choice < 1 && choice > 3)
+            {
+                Console.WriteLine("Where do you want to deposit your money ");
+                Console.WriteLine("1. Credit balance");
+                Console.WriteLine("2. Debit balance");
+                Console.WriteLine("3. Mortgage balance");
+                choice = int.Parse(Console.ReadLine());
 
+                Console.Clear();
+
+                if (choice < 1 && choice > 3)
+                {
+                    error = false;
+                    Console.WriteLine("Error, choice isn't valid!");
+                }
+                else
+                {
+                    error = true;
+                }
+            }
+
+            Console.WriteLine("How much money do you want to deposit in your" + name_choice[choice - 1] + "today? ");
+            deposit = Convert.ToDouble(Console.ReadLine());
+
+            switch (choice)
+            {
+
+                case 1:
+                    credit_acc += deposit; break;
+                case 2:
+                    deposit_acc += deposit; break;
+                case 3:
+                    mortgage_acc += deposit; break;
+            }
+        }
+        public void Withdraw()
+        {
+            Console.WriteLine("How much money do you want to withdraw today? ");
+            withdraw = Convert.ToDouble(Console.ReadLine());
+
+            deposit_acc -= withdraw;
+        }
     }
 
 
@@ -51,7 +144,7 @@ namespace Inheritence
     {
         static void Main(string[] args)
         {
-            
+
         }
     }
 }
