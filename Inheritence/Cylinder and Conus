@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inheritence
+{
+    class Circle
+    {
+        protected double radius;
+
+        public void Input(Cylinder cylinder)
+        {
+            Console.Write("Enter radius: ");
+            radius = Convert.ToDouble(Console.ReadLine());
+            cylinder.radius = radius;
+        }
+
+        public void Surface()
+        {
+            Console.WriteLine("Surface of circle is " + Math.Pow(radius, 2) * Math.PI);
+        }
+    }
+
+    class Conus : Circle
+    {
+        private double h;
+        
+        public void VolumeConus()
+        {
+            Console.Write("Enter the height of the conus: ");
+            h = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Volume of conus is " + (Math.Pow(radius, 2) * Math.PI * h) /3);
+        }
+
+    }
+
+    class Cylinder : Circle
+    {
+        private double h;
+
+        public void VolumeCylinder()
+        {
+            Console.Write("Enter the height of the cylinder: ");
+            h = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Volume of conus is " + Math.Pow(radius, 2) * Math.PI * h);
+        }
+    }
+
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Conus conus = new Conus();
+            Cylinder cylinder = new Cylinder();
+
+            conus.Input(cylinder);
+
+            conus.Surface();
+
+            conus.VolumeConus();
+
+            cylinder.VolumeCylinder();
+        }
+    }
+}
