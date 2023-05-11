@@ -116,7 +116,7 @@ namespace Bank
             }
             Console.Clear();
 
-            choice = 0;
+            error = false;
         }
         public void Withdraw()
         {
@@ -188,7 +188,7 @@ namespace Bank
 
                 Console.Clear();
 
-                if (choice < 1 && choice > 3)
+                if (choice < 1 || choice > 3)
                 {
                     error = false;
                     Console.WriteLine("Error, choice isn't valid!");
@@ -197,8 +197,6 @@ namespace Bank
                 {
                     error = true;
                 }
-
-                choice = 0;
             }
 
             Console.WriteLine("How much money do you want to deposit in your " + name_choice[choice - 1] + " today? ");
@@ -214,6 +212,8 @@ namespace Bank
                     mortgage_acc += deposit; break;
             }
             Console.Clear();
+
+            error = false;
         }
         public void Withdraw()
         {
@@ -346,8 +346,6 @@ namespace Bank
                         {
                             person[i].Withdraw();
                         }
-
-                        choice = 0;
                     }
                 }
                 Console.Clear();
