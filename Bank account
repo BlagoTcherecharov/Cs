@@ -2,7 +2,9 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
-
+using Interaction;
+using Person1;
+using Firm1;
 
 namespace Bank
 {
@@ -10,44 +12,177 @@ namespace Bank
     {
         void Deposit();
         void Withdraw();
+        void Balance();
+        void InterestCredit();
+        void InterestMortgage();
     }
-
+    
     class BankAccount
     {
         protected string customer;
         protected double credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage;
+        private const int MONTHS = 12;
+        protected double deposit_balance;
 
         public BankAccount()
         {
-            credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = 0;
+            customer = string.Empty;
+            credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = deposit_balance = 0; ;
         }
 
         public void BalanceInfo()
         {
-            Console.Write("Enter credit balance: ");
+            Console.Write("Enter name: ");
+            customer = Console.ReadLine();
+            Console.Write("Enter credit balance: $");
             credit_acc = Convert.ToDouble(Console.ReadLine());
-            Console.Write("Enter deposit balance: ");
+            Console.Write("Enter deposit balance: $");
             deposit_acc = Convert.ToDouble(Console.ReadLine());
-            Console.Write("Enter mortgage balance: ");
+            Console.Write("Enter mortgage balance: $");
             mortgage_acc = Convert.ToDouble(Console.ReadLine());
             Console.Write("Enter monthly interest pourcentage: ");
             monthly_interest_pourcentage = Convert.ToDouble(Console.ReadLine());
+
+            Console.Clear();
+        }
+        public void InterestDeposit()
+        {
+            deposit_balance = deposit_acc;
+            Console.WriteLine("\nDeposit Interest:");
+            if (deposit_acc < 0 || deposit_acc >= 1000)
+            {
+                Console.WriteLine("You will need to pay $" + Math.Round(deposit_acc * monthly_interest_pourcentage / 100, 2) + " next month if no money is deposited or withdrawn.");
+
+                for (int i = 0; i < MONTHS; i++)
+                {
+                    deposit_balance -= deposit_balance * monthly_interest_pourcentage / 100;
+                }
+                Console.WriteLine("You will need to pay in total $" + Math.Round(deposit_acc - deposit_balance, 2) + " in interest on the deposit balance next year if no money is deposited or withdrawn.");
+            }
+            else
+                Console.WriteLine("You don't need to pay any interests on the deposit balance if no money is deposited or withdrawn.");
+
         }
     }
+    
+    class Person : BankAccount, IInteraction
+    {
+        private const int MONTHS = 12;
+        private bool error;
+        private int choice;
+        private double deposit, withdraw, credit_balance, mortgage_balance;
+        private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
 
+        public Person() : base()
+        {
+            error = false;
+            choice = 0;
+            deposit = withdraw = credit_balance = mortgage_balance = 0;
+        }
+
+        public void Deposit()
+        {
+            while (error == false)
+            {
+                Console.WriteLine("Where do you want to deposit your money ");
+                Console.WriteLine("1. Credit balance");
+                Console.WriteLine("2. Deposit balance");
+                Console.WriteLine("3. Mortgage balance");
+                choice = int.Parse(Console.ReadLine());
+
+                Console.Clear();
+
+                if (choice < 1 || choice > 3)
+                {
+                    Console.WriteLine("Error, choice isn't valid!");
+                }
+                else
+                {
+                    error = true;
+                }
+            }
+
+            Console.WriteLine("How much money do you want to deposit in your " + name_choice[choice - 1] + " today? ");
+            deposit = Convert.ToDouble(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    credit_acc += deposit; break;
+                case 2:
+                    deposit_acc += deposit; break;
+                case 3:
+                    mortgage_acc += deposit; break;
+            }
+            Console.Clear();
+
+            choice = 0;
+        }
+        public void Withdraw()
+        {
+            Console.WriteLine("How much money do you want to withdraw from your deposit account today? ");
+            withdraw = Convert.ToDouble(Console.ReadLine());
+
+            deposit_acc -= withdraw;
+
+            Console.Clear();
+        }
+
+        public void Balance()
+        {
+            Console.WriteLine("Customer: " + customer);
+            Console.WriteLine("Credit balance: $" + credit_acc);
+            Console.WriteLine("Deposit balance: $" + deposit_acc);
+            Console.WriteLine("Mortgage balance: $" + mortgage_acc);
+        }
+
+        public void InterestCredit()
+        {
+            credit_balance = credit_acc;
+
+            Console.WriteLine("\nCredit Interest: \nYou don't need to pay any interests on the credit balance for the first 3 months.");
+
+            for (int i = 3; i < MONTHS; i++)
+            {
+                credit_balance -= credit_balance * monthly_interest_pourcentage / 100;
+            }
+            Console.WriteLine("You will need to pay in total $" + Math.Round(credit_acc - credit_balance, 2) + " in interest on the credit balance next year if no money is deposited or withdrawn.");
+        }
+
+        public void InterestMortgage()
+        {
+            mortgage_balance = mortgage_acc;
+
+            Console.WriteLine("\nMortgage Interest: \nYou don't need to pay any interests on the mortgage balance for the first 6 months.");
+
+            for (int i = 6; i < MONTHS; i++)
+            {
+                mortgage_balance -= mortgage_balance * monthly_interest_pourcentage / 100;
+            }
+            Console.WriteLine("You will need to pay in total $" + Math.Round(mortgage_acc - mortgage_balance, 2) + " in interest on the mortgage balance next year if no money is deposited or withdrawn.");
+        }
+    }
+    
     class Firm : BankAccount, IInteraction
     {
-        private bool error = true;
+        private const int MONTHS = 12;
+        private bool error;
         private int choice;
-        private double deposit, withdraw;
+        private double deposit, withdraw, credit_balance, mortgage_balance, first_year_interest_mortgage;
         private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
+        public Firm() : base()
+        {
+            error = false;
+            choice = 0;
+            deposit = withdraw = credit_balance = mortgage_balance = 0;
+        }
         public void Deposit()
         {
-            while (choice < 1 && choice > 3)
+            while (error == false)
             {
                 Console.WriteLine("Where do you want to deposit your money ");
                 Console.WriteLine("1. Credit balance");
-                Console.WriteLine("2. Debit balance");
+                Console.WriteLine("2. Deposit balance");
                 Console.WriteLine("3. Mortgage balance");
                 choice = int.Parse(Console.ReadLine());
 
@@ -62,14 +197,15 @@ namespace Bank
                 {
                     error = true;
                 }
+
+                choice = 0;
             }
 
-            Console.WriteLine("How much money do you want to deposit in your" + name_choice[choice - 1] + "today? ");
+            Console.WriteLine("How much money do you want to deposit in your " + name_choice[choice - 1] + " today? ");
             deposit = Convert.ToDouble(Console.ReadLine());
-            
+
             switch (choice)
             {
-                
                 case 1:
                     credit_acc += deposit; break;
                 case 2:
@@ -77,74 +213,211 @@ namespace Bank
                 case 3:
                     mortgage_acc += deposit; break;
             }
+            Console.Clear();
         }
         public void Withdraw()
         {
-            Console.WriteLine("How much money do you want to withdraw today? ");
+            Console.WriteLine("How much money do you want to withdraw from your deposit account today? ");
             withdraw = Convert.ToDouble(Console.ReadLine());
 
             deposit_acc -= withdraw;
+
+            Console.Clear();
+        }
+        public void Balance()
+        {
+            Console.WriteLine("Customer: " + customer);
+            Console.WriteLine("Credit balance: $" + credit_acc);
+            Console.WriteLine("Deposit balance: $" + deposit_acc);
+            Console.WriteLine("Mortgage balance: $" + mortgage_acc);
+        }
+
+        public void InterestCredit()
+        {
+            credit_balance = credit_acc;
+
+            Console.WriteLine("\nCredit Interest: \nYou don't need to pay any interests on the credit balance for the first 2 months.");
+
+            for (int i = 2; i < MONTHS; i++)
+            {
+                credit_balance -= credit_balance * monthly_interest_pourcentage / 100;
+            }
+            Console.WriteLine("You will need to pay in total $" + Math.Round(credit_acc - credit_balance, 2) + " in interest on the credit balance next year if no money is deposited or withdrawn.");
+        }
+
+        public void InterestMortgage()
+        {
+            mortgage_balance = mortgage_acc;
+
+            first_year_interest_mortgage = monthly_interest_pourcentage/ 2;
+
+            for (int i = 0; i < MONTHS; i++)
+            {
+                mortgage_balance -= mortgage_balance * first_year_interest_mortgage / 100;
+            }
+            Console.WriteLine("\nMortgage Interest: \nFirst year has halfed interest on the mortgage balance.");
+            Console.WriteLine("You will need to pay in total $" + Math.Round(mortgage_acc - mortgage_balance, 2) + " in interest on the mortgage balance next year if no money is deposited or withdrawn.");
+           
+            for (int i = 0; i < MONTHS; i++)
+            {
+                mortgage_balance -= mortgage_balance * monthly_interest_pourcentage / 100;
+            }
+            Console.WriteLine("You will need to pay in total $" + Math.Round(mortgage_acc - mortgage_balance, 2) + " in interest on the mortgage balance in 2 year if no money is deposited or withdrawn.");
         }
     }
-
-    class Person : BankAccount
-    {
-        private bool error = true;
-        private int choice;
-        private double deposit, withdraw;
-        private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
-        public void Deposit()
-        {
-            while (choice < 1 && choice > 3)
-            {
-                Console.WriteLine("Where do you want to deposit your money ");
-                Console.WriteLine("1. Credit balance");
-                Console.WriteLine("2. Debit balance");
-                Console.WriteLine("3. Mortgage balance");
-                choice = int.Parse(Console.ReadLine());
-
-                Console.Clear();
-
-                if (choice < 1 && choice > 3)
-                {
-                    error = false;
-                    Console.WriteLine("Error, choice isn't valid!");
-                }
-                else
-                {
-                    error = true;
-                }
-            }
-
-            Console.WriteLine("How much money do you want to deposit in your" + name_choice[choice - 1] + "today? ");
-            deposit = Convert.ToDouble(Console.ReadLine());
-
-            switch (choice)
-            {
-
-                case 1:
-                    credit_acc += deposit; break;
-                case 2:
-                    deposit_acc += deposit; break;
-                case 3:
-                    mortgage_acc += deposit; break;
-            }
-        }
-        public void Withdraw()
-        {
-            Console.WriteLine("How much money do you want to withdraw today? ");
-            withdraw = Convert.ToDouble(Console.ReadLine());
-
-            deposit_acc -= withdraw;
-        }
-    }
-
-
+    
     class Program
     {
         static void Main(string[] args)
         {
+            int num_customers_person = 0, num_customers_firm = 0;
+            int choice = 0;
 
+            while (choice < 1 || choice > 3)
+            {
+                Console.WriteLine("What type of bank account do you want to create today");
+                Console.WriteLine("1. Person account");
+                Console.WriteLine("2. Firm account");
+                Console.WriteLine("3. Both types");
+                choice = int.Parse(Console.ReadLine());
+
+                Console.Clear();
+
+                if (choice < 1 || choice > 3)
+                {
+                    Console.WriteLine("Error, choice isn't valid!");
+                }
+            }
+
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("How many person accounts are you creating today?");
+                    num_customers_person = int.Parse(Console.ReadLine());
+                    break;
+                case 2:
+                    Console.WriteLine("How many firm accounts are you creating today?");
+                    num_customers_firm = int.Parse(Console.ReadLine());
+                    break;
+                case 3:
+                    Console.WriteLine("How many person accounts are you creating today?");
+                    num_customers_person = int.Parse(Console.ReadLine());
+                    Console.WriteLine("How many firm accounts are you creating today?");
+                    num_customers_firm = int.Parse(Console.ReadLine());
+                    break;
+            }
+
+            Console.Clear();
+
+            if (num_customers_person > 0)
+            {
+                Person[] person = new Person[num_customers_person];
+
+                for (int i = 0; i < person.Length; i++)
+                {
+                    person[i] = new Person();
+                }
+
+                for (int i = 0; i < person.Length; i++)
+                {
+                    person[i].BalanceInfo();
+
+                    choice = 0;
+
+                    while (choice != 3)
+                    {
+                        Console.WriteLine("Do you want to change your balance?");
+                        Console.WriteLine("1. Deposit");
+                        Console.WriteLine("2. Withdraw");
+                        Console.WriteLine("3. No");
+                        choice = int.Parse(Console.ReadLine());
+
+                        Console.Clear();
+
+                        if (choice < 1 || choice > 3)
+                        {
+                            Console.WriteLine("Error, choice isn't valid!");
+                        }
+                        else if (choice == 1)
+                        {
+                            person[i].Deposit();
+                        }
+                        else if (choice == 2)
+                        {
+                            person[i].Withdraw();
+                        }
+
+                        choice = 0;
+                    }
+                }
+                Console.Clear();
+                for (int i = 0; i < person.Length; i++)
+                {
+                    person[i].Balance();
+                    person[i].InterestCredit();
+                    person[i].InterestDeposit();
+                    person[i].InterestMortgage();
+                }
+
+                if (num_customers_firm > 0)
+                {
+                    Console.WriteLine();
+
+                    Console.WriteLine("Press Enter to continue with next account...");
+                    Console.ReadLine();
+
+                    Console.Clear();
+                }
+            }
+
+            if (num_customers_firm > 0)
+            {
+                Firm[] firm = new Firm[num_customers_firm];
+
+                for (int i = 0; i < firm.Length; i++)
+                {
+                    firm[i] = new Firm();
+                }
+
+                for (int i = 0; i < firm.Length; i++)
+                {
+                    firm[i].BalanceInfo();
+
+                    choice = 0;
+
+                    while (choice != 3)
+                    {
+                        Console.WriteLine("Do you want to change your balance?");
+                        Console.WriteLine("1. Deposit");
+                        Console.WriteLine("2. Withdraw");
+                        Console.WriteLine("3. No");
+                        choice = int.Parse(Console.ReadLine());
+
+                        Console.Clear();
+
+                        if (choice < 1 || choice > 3)
+                        {
+                            Console.WriteLine("Error, choice isn't valid!");
+                        }
+                        else if (choice == 1)
+                        {
+                            firm[i].Deposit();
+                        }
+                        else if (choice == 2)
+                        {
+                            firm[i].Withdraw();
+                        }
+                    }
+                }
+                Console.Clear();
+                for (int i = 0; i < firm.Length; i++)
+                {
+                    firm[i].Balance();
+                    firm[i].InterestCredit();
+                    firm[i].InterestDeposit();
+                    firm[i].InterestMortgage();
+                }
+            }
         }
     }
 }
