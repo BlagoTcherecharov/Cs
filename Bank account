@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inheritence
+{
+    interface IInteraction
+    {
+        void Deposit();
+        void Withdraw();
+        void BalanceInfo();
+    }
+
+    class BankAccount
+    {
+        protected string customer;
+        protected double credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage;
+
+        public BankAccount()
+        {
+            credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = 0;
+        }
+
+        public void BalanceInfo()
+        {
+            Console.Write("Enter credit balance: ");
+            credit_acc = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter deposit balance: ");
+            deposit_acc = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter mortgage balance: ");
+            mortgage_acc = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter monthly interest pourcentage: ");
+            monthly_interest_pourcentage = Convert.ToDouble(Console.ReadLine());
+        }
+    }
+
+    class Firm : BankAccount
+    {
+
+    }
+
+    class Person : BankAccount
+    {
+
+    }
+
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+        }
+    }
+}
