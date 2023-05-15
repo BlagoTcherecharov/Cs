@@ -14,7 +14,7 @@ namespace Bank
         void InterestMortgage();
     }
 
-    class BankAccount
+    abstract class BankAccount
     {
         protected string customer;
         protected double credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage, withdraw;
@@ -48,12 +48,21 @@ namespace Bank
         //How much to withdraw from deposit balance
         public void Withdraw()
         {
-            Console.WriteLine("How much money do you want to withdraw from your deposit account today? ");
-            withdraw = Convert.ToDouble(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("How much money do you want to withdraw from your deposit account today? ");
+                withdraw = Convert.ToDouble(Console.ReadLine());
+
+                Console.Clear();
+
+                if (withdraw > deposit_acc)
+                {
+                    Console.WriteLine("Error, you can't withdraw more money than you have in your account!");
+                }
+
+            } while (withdraw > deposit_acc);
 
             deposit_acc -= withdraw;
-
-            Console.Clear();
         }
 
         //Interest calculation on deposit balance
