@@ -45,6 +45,17 @@ namespace Bank
             Console.Clear();
         }
 
+        //How much to withdraw from deposit balance
+        public void Withdraw()
+        {
+            Console.WriteLine("How much money do you want to withdraw from your deposit account today? ");
+            withdraw = Convert.ToDouble(Console.ReadLine());
+
+            deposit_acc -= withdraw;
+
+            Console.Clear();
+        }
+
         //Interest calculation on deposit balance
         public void InterestDeposit()
         {
@@ -120,17 +131,6 @@ namespace Bank
             Console.Clear();
 
             error = false;
-        }
-        
-        //How much to withdraw from deposit balance
-        public void Withdraw()
-        {
-            Console.WriteLine("How much money do you want to withdraw from your deposit account today? ");
-            withdraw = Convert.ToDouble(Console.ReadLine());
-
-            deposit_acc -= withdraw;
-
-            Console.Clear();
         }
 
         //Output customer name and balance
@@ -228,16 +228,7 @@ namespace Bank
             error = false;
         }
         
-        //How much to withdraw from deposit balance
-        public void Withdraw()
-        {
-            Console.WriteLine("How much money do you want to withdraw from your deposit account today? ");
-            withdraw = Convert.ToDouble(Console.ReadLine());
-
-            deposit_acc -= withdraw;
-
-            Console.Clear();
-        }
+        //Output customer name and balance
         public void Balance()
         {
             Console.WriteLine("Customer: " + customer);
