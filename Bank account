@@ -13,11 +13,11 @@ namespace Bank
         void InterestCredit();
         void InterestMortgage();
     }
-    
+
     class BankAccount
     {
         protected string customer;
-        protected double credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage;
+        protected double credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage, withdraw;
         private const int MONTHS = 12;
         protected double deposit_balance;
 
@@ -25,7 +25,7 @@ namespace Bank
         public BankAccount()
         {
             customer = string.Empty;
-            credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = deposit_balance = 0; ;
+            credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = deposit_balance = withdraw = 0;
         }
 
         //Input client name and bank account basic information
@@ -76,13 +76,13 @@ namespace Bank
 
         }
     }
-    
+
     class Person : BankAccount, IInteraction
     {
         private const int MONTHS = 12;
         private bool error;
         private int choice;
-        private double deposit, withdraw, credit_balance, mortgage_balance;
+        private double deposit, credit_balance, mortgage_balance;
         private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
 
         //Value initialization for fields
@@ -170,15 +170,15 @@ namespace Bank
             Console.WriteLine("You will need to pay in total $" + Math.Round(mortgage_acc - mortgage_balance, 2) + " in interest on the mortgage balance next year if no money is deposited or withdrawn.");
         }
     }
-    
+
     class Firm : BankAccount, IInteraction
     {
         private const int MONTHS = 12;
         private bool error;
         private int choice;
-        private double deposit, withdraw, credit_balance, mortgage_balance, first_year_interest_mortgage;
+        private double deposit, credit_balance, mortgage_balance, first_year_interest_mortgage;
         private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
-        
+
         //Value initialization for fields
         public Firm() : base()
         {
@@ -186,7 +186,7 @@ namespace Bank
             choice = 0;
             deposit = withdraw = credit_balance = mortgage_balance = 0;
         }
-        
+
         //Choice balance where to deposit and how much to deposit
         public void Deposit()
         {
@@ -227,7 +227,7 @@ namespace Bank
 
             error = false;
         }
-        
+
         //Output customer name and balance
         public void Balance()
         {
@@ -256,7 +256,7 @@ namespace Bank
         {
             mortgage_balance = mortgage_acc;
 
-            first_year_interest_mortgage = monthly_interest_pourcentage/ 2;
+            first_year_interest_mortgage = monthly_interest_pourcentage / 2;
 
             for (int i = 0; i < MONTHS; i++)
             {
@@ -264,7 +264,7 @@ namespace Bank
             }
             Console.WriteLine("\nMortgage Interest: \nFirst year has halfed interest on the mortgage balance.");
             Console.WriteLine("You will need to pay in total $" + Math.Round(mortgage_acc - mortgage_balance, 2) + " in interest on the mortgage balance next year if no money is deposited or withdrawn.");
-           
+
             for (int i = 0; i < MONTHS; i++)
             {
                 mortgage_balance -= mortgage_balance * monthly_interest_pourcentage / 100;
@@ -272,7 +272,7 @@ namespace Bank
             Console.WriteLine("You will need to pay in total $" + Math.Round(mortgage_acc - mortgage_balance, 2) + " in interest on the mortgage balance in 2 year if no money is deposited or withdrawn.");
         }
     }
-    
+
     class Program
     {
         static void Main(string[] args)
@@ -296,7 +296,7 @@ namespace Bank
                     Console.WriteLine("Error, choice isn't valid!");
                 }
             }
-            
+
             //Picking number of accounts created
             switch (choice)
             {
