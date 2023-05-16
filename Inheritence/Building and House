@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inheritence
+{
+    class Building
+    {
+        protected double height, surface;
+        protected string adress;
+        
+        public Building()
+        {
+            height = surface = 0;
+            adress = null;
+        }
+        
+        public double Height
+        {
+            get{return height;}
+            set{height = value;}
+        }
+        
+        public double Surface
+        {
+            get{return surface;}
+            set{surface = value;}
+        }
+        
+        public string Adress
+        {
+            get{return adress;}
+            set{adress = value;}
+        }
+    }
+    
+    class House : Building
+    {
+        private int num_floor;
+        private string owner;
+        
+        public House() : base()
+        {
+            num_floor = 0;
+            owner = null;
+        }
+        
+        public int NumFloor
+        {
+            get{return num_floor;}
+            set{num_floor = value;}
+        }
+        
+        public string Owner
+        {
+            get{return owner;}
+            set{owner = value;}
+        }
+        
+        public void Output()
+        {
+            Console.WriteLine("Owner is " + owner);
+            Console.WriteLine("Adress of building is " + adress);
+            Console.WriteLine("Height of the building " + height + " m");
+            Console.WriteLine("Building got " + num_floor + " floors");
+            Console.WriteLine("Surface of a floor is " + surface);
+            Console.WriteLine("Surface of the whole building is " + surface*num_floor);
+        }
+    }
+    
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            House house = new House();
+            
+            Console.Write("Enter name of owner: ");
+            house.Owner = Console.ReadLine();
+            Console.Write("Enter adress: ");
+            house.Adress = Console.ReadLine();
+            Console.Write("Enter building height: ");
+            house.Height = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter number of floors: ");
+            house.NumFloor = int.Parse(Console.ReadLine());
+            Console.Write("Enter surface of a floor: ");
+            house.Surface = Convert.ToDouble(Console.ReadLine());
+            
+            Console.Clear();
+            
+            house.Output();
+        }
+    }
+}
