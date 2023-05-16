@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Inheritence
+{
+    class Lion
+    {
+        protected string habitat;
+        protected double weight, height;
+        
+        public Lion()
+        {
+            habitat = null;
+            weight = height = 0;
+        }
+        
+        public void Input()
+        {
+            Console.Write("Enter lion habitat: ");
+            habitat = Console.ReadLine();
+            Console.Write("Enter lion's weight: ");
+            weight = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter lion's height: ");
+            height = Convert.ToDouble(Console.ReadLine());
+        }
+        
+        public virtual void Output()
+        {
+            Console.WriteLine("Lion in latin is Panthera leo");
+            Console.WriteLine("Lion's habitat is " + habitat);
+            Console.WriteLine("Lion's weight is " + weight + " kg" );
+            Console.WriteLine("Lion's height is " + height + " m" );
+        }
+    }
+    
+    class AfricanLion : Lion
+    {
+        public AfricanLion() : base()
+        {}
+        
+        public override void Output()
+        {
+            Console.WriteLine("African lion in latin is Panthera leo leo");
+            Console.WriteLine("Lion's habitat is " + habitat);
+            Console.WriteLine("Lion's weight is " + weight + " kg" );
+            Console.WriteLine("Lion's height is " + height + " m" );
+        }
+    }
+    
+    class AsiaticLion : Lion
+    {
+        public AsiaticLion() : base()
+        {}
+        
+        public override void Output()
+        {
+            Console.WriteLine("Asiatic lion in latin is Panthera leo persica");
+            Console.WriteLine("Lion's habitat is " + habitat);
+            Console.WriteLine("Lion's weight is " + weight + " kg" );
+            Console.WriteLine("Lion's height is " + height + " m" );
+        }
+    }
+    
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int choice = 0;
+            
+            while (choice < 1 || choice > 3)
+            {
+                Console.WriteLine("What type of lion would you want to describe?");
+                Console.WriteLine("1. Lion");
+                Console.WriteLine("2. African Lion");
+                Console.WriteLine("3. Asiatic Lion");
+                choice = int.Parse(Console.ReadLine());
+
+                Console.Clear();
+
+                if (choice < 1 || choice > 3)
+                {
+                    Console.WriteLine("Error, choice isn't valid!");
+                }
+            }
+            
+            switch(choice)
+            {
+                case 1:
+                    Lion lion = new Lion();
+                    lion.Input();
+                    Console.Clear();
+                    lion.Output();
+                    break;
+                case 2:
+                    AfricanLion afLion = new AfricanLion();
+                    afLion.Input();
+                    Console.Clear();
+                    afLion.Output();
+                    break;
+                case 3:
+                    AsiaticLion asLion = new AsiaticLion();
+                    asLion.Input();
+                    Console.Clear();
+                    asLion.Output();
+                    break;
+            }
+            
+        }
+    }
+}
