@@ -10,13 +10,18 @@ namespace Bank
     {   
         private const int MONTHS = 12;
         protected string customer;
-        protected double credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage, withdraw;
-        protected double deposit_balance;
+        protected double credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage;
+        protected double deposit_balance, deposit, withdraw;
+        protected bool error;
+        protected int choice;
+        protected string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
 
         public BankAccount()
         {
+            error = false;
+            choice = 0;
             customer = string.Empty;
-            credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = deposit_balance = withdraw = 0;
+            credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = deposit_balance = deposit = withdraw = 0;
         }
 
         public void BalanceInfo()
@@ -33,6 +38,46 @@ namespace Bank
             monthly_interest_pourcentage = Convert.ToDouble(Console.ReadLine());
 
             Console.Clear();
+        }
+
+        public void Deposit()
+        {
+            while (error == false)
+            {
+                Console.WriteLine("Where do you want to deposit your money ");
+                Console.WriteLine("1. Credit balance");
+                Console.WriteLine("2. Deposit balance");
+                Console.WriteLine("3. Mortgage balance");
+                choice = int.Parse(Console.ReadLine());
+
+                Console.Clear();
+
+                if (choice < 1 || choice > 3)
+                {
+                    error = false;
+                    Console.WriteLine("Error, choice isn't valid!");
+                }
+                else
+                {
+                    error = true;
+                }
+            }
+
+            Console.WriteLine("How much money do you want to deposit in your " + name_choice[choice - 1] + " today? ");
+            deposit = Convert.ToDouble(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    credit_acc += deposit; break;
+                case 2:
+                    deposit_acc += deposit; break;
+                case 3:
+                    mortgage_acc += deposit; break;
+            }
+            Console.Clear();
+
+            error = false;
         }
 
         public void Withdraw()
