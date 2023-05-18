@@ -1,0 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Interaction
+{
+    internal interface IInteraction
+    {
+        void Deposit();
+        void Withdraw();
+        void Balance();
+        void InterestCredit();
+        void InterestMortgage();
+    }
+}
