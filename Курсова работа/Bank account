@@ -16,16 +16,21 @@ namespace Bank
 
     abstract class BankAccount
     {
-        protected string customer;
-        protected double credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage, withdraw;
         private const int MONTHS = 12;
-        protected double deposit_balance;
+        protected string customer;
+        protected double deposit_balance, credit_acc, deposit_acc, mortgage_acc, monthly_interest_pourcentage;
+        protected double deposit, withdraw;
+        protected bool error;
+        protected int choice;
+        protected string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
 
         //Value initialization for fields
         public BankAccount()
         {
+            error = false;
+            choice = 0;
             customer = string.Empty;
-            credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = deposit_balance = withdraw = 0;
+            deposit_acc = credit_acc = mortgage_acc = monthly_interest_pourcentage = deposit = withdraw = 0;
         }
 
         //Input client name and bank account basic information
@@ -43,6 +48,47 @@ namespace Bank
             monthly_interest_pourcentage = Convert.ToDouble(Console.ReadLine());
 
             Console.Clear();
+        }
+
+        //Choice balance where to deposit and how much to deposit
+        public void Deposit()
+        {
+            while (error == false)
+            {
+                Console.WriteLine("Where do you want to deposit your money ");
+                Console.WriteLine("1. Credit balance");
+                Console.WriteLine("2. Deposit balance");
+                Console.WriteLine("3. Mortgage balance");
+                choice = int.Parse(Console.ReadLine());
+
+                Console.Clear();
+
+                if (choice < 1 || choice > 3)
+                {
+                    error = false;
+                    Console.WriteLine("Error, choice isn't valid!");
+                }
+                else
+                {
+                    error = true;
+                }
+            }
+
+            Console.WriteLine("How much money do you want to deposit in your " + name_choice[choice - 1] + " today? ");
+            deposit = Convert.ToDouble(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    credit_acc += deposit; break;
+                case 2:
+                    deposit_acc += deposit; break;
+                case 3:
+                    mortgage_acc += deposit; break;
+            }
+            Console.Clear();
+
+            error = false;
         }
 
         //How much to withdraw from deposit balance
@@ -89,57 +135,12 @@ namespace Bank
     class Person : BankAccount, IInteraction
     {
         private const int MONTHS = 12;
-        private bool error;
-        private int choice;
-        private double deposit, credit_balance, mortgage_balance;
-        private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
-
+        private double credit_balance, mortgage_balance;
+        
         //Value initialization for fields
         public Person() : base()
         {
-            error = false;
-            choice = 0;
-            deposit = withdraw = credit_balance = mortgage_balance = 0;
-        }
-
-        //Choice balance where to deposit and how much to deposit
-        public void Deposit()
-        {
-            while (error == false)
-            {
-                Console.WriteLine("Where do you want to deposit your money ");
-                Console.WriteLine("1. Credit balance");
-                Console.WriteLine("2. Deposit balance");
-                Console.WriteLine("3. Mortgage balance");
-                choice = int.Parse(Console.ReadLine());
-
-                Console.Clear();
-
-                if (choice < 1 || choice > 3)
-                {
-                    Console.WriteLine("Error, choice isn't valid!");
-                }
-                else
-                {
-                    error = true;
-                }
-            }
-
-            Console.WriteLine("How much money do you want to deposit in your " + name_choice[choice - 1] + " today? ");
-            deposit = Convert.ToDouble(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    credit_acc += deposit; break;
-                case 2:
-                    deposit_acc += deposit; break;
-                case 3:
-                    mortgage_acc += deposit; break;
-            }
-            Console.Clear();
-
-            error = false;
+            credit_balance = mortgage_balance = 0;
         }
 
         //Output customer name and balance
@@ -183,58 +184,12 @@ namespace Bank
     class Firm : BankAccount, IInteraction
     {
         private const int MONTHS = 12;
-        private bool error;
-        private int choice;
-        private double deposit, credit_balance, mortgage_balance, first_year_interest_mortgage;
-        private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
-
+        private double credit_balance, mortgage_balance, first_year_interest_mortgage;
+        
         //Value initialization for fields
         public Firm() : base()
         {
-            error = false;
-            choice = 0;
-            deposit = withdraw = credit_balance = mortgage_balance = 0;
-        }
-
-        //Choice balance where to deposit and how much to deposit
-        public void Deposit()
-        {
-            while (error == false)
-            {
-                Console.WriteLine("Where do you want to deposit your money ");
-                Console.WriteLine("1. Credit balance");
-                Console.WriteLine("2. Deposit balance");
-                Console.WriteLine("3. Mortgage balance");
-                choice = int.Parse(Console.ReadLine());
-
-                Console.Clear();
-
-                if (choice < 1 || choice > 3)
-                {
-                    error = false;
-                    Console.WriteLine("Error, choice isn't valid!");
-                }
-                else
-                {
-                    error = true;
-                }
-            }
-
-            Console.WriteLine("How much money do you want to deposit in your " + name_choice[choice - 1] + " today? ");
-            deposit = Convert.ToDouble(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    credit_acc += deposit; break;
-                case 2:
-                    deposit_acc += deposit; break;
-                case 3:
-                    mortgage_acc += deposit; break;
-            }
-            Console.Clear();
-
-            error = false;
+            credit_balance = mortgage_balance = 0;
         }
 
         //Output customer name and balance
@@ -324,9 +279,9 @@ namespace Bank
                     num_customers_firm = int.Parse(Console.ReadLine());
                     break;
             }
-
             Console.Clear();
 
+            //Creating person accounts and using methods from classes
             if (num_customers_person > 0)
             {
                 Person[] person = new Person[num_customers_person];
@@ -386,6 +341,7 @@ namespace Bank
                 }
             }
 
+            //Creating firm accounts and using methods from classes
             if (num_customers_firm > 0)
             {
                 Firm[] firm = new Firm[num_customers_firm];
