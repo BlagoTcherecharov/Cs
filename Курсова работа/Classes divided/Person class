@@ -15,9 +15,7 @@ namespace Person1
         
         public Person() : base()
         {
-            error = false;
-            choice = 0;
-            deposit = credit_balance = mortgage_balance = 0;
+            credit_balance = mortgage_balance = 0;
         }
 
         public void Balance()
