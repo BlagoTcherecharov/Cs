@@ -11,54 +11,12 @@ namespace Firm1
     internal class Firm : BankAccount, IInteraction
     {
         private const int MONTHS = 12;
-        private bool error;
-        private int choice;
-        private double deposit, credit_balance, mortgage_balance, first_year_interest_mortgage;
-        private string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
+        private double credit_balance, mortgage_balance, first_year_interest_mortgage;
         public Firm() : base()
         {
             error = false;
             choice = 0;
             deposit = credit_balance = mortgage_balance = 0;
-        }
-        public void Deposit()
-        {
-            while (error == false)
-            {
-                Console.WriteLine("Where do you want to deposit your money ");
-                Console.WriteLine("1. Credit balance");
-                Console.WriteLine("2. Deposit balance");
-                Console.WriteLine("3. Mortgage balance");
-                choice = int.Parse(Console.ReadLine());
-
-                Console.Clear();
-
-                if (choice < 1 || choice > 3)
-                {
-                    error = false;
-                    Console.WriteLine("Error, choice isn't valid!");
-                }
-                else
-                {
-                    error = true;
-                }
-            }
-
-            Console.WriteLine("How much money do you want to deposit in your " + name_choice[choice - 1] + " today? ");
-            deposit = Convert.ToDouble(Console.ReadLine());
-
-            switch (choice)
-            {
-                case 1:
-                    credit_acc += deposit; break;
-                case 2:
-                    deposit_acc += deposit; break;
-                case 3:
-                    mortgage_acc += deposit; break;
-            }
-            Console.Clear();
-
-            error = false;
         }
         public void Balance()
         {
