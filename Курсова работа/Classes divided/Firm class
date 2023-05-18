@@ -12,12 +12,12 @@ namespace Firm1
     {
         private const int MONTHS = 12;
         private double credit_balance, mortgage_balance, first_year_interest_mortgage;
+        
         public Firm() : base()
         {
-            error = false;
-            choice = 0;
-            deposit = credit_balance = mortgage_balance = 0;
+            credit_balance = mortgage_balance = 0;
         }
+        
         public void Balance()
         {
             Console.WriteLine("Customer: " + customer);
