@@ -1,0 +1,164 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Xml;
+using Interaction;
+using Person1;
+using Firm1;
+
+
+namespace Bank
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int num_customers_person = 0, num_customers_firm = 0;
+            int choice = 0;
+
+            while (choice < 1 || choice > 3)
+            {
+                Console.WriteLine("What type of bank account do you want to create today");
+                Console.WriteLine("1. Person account");
+                Console.WriteLine("2. Firm account");
+                Console.WriteLine("3. Both types");
+                choice = int.Parse(Console.ReadLine());
+
+                Console.Clear();
+
+                if (choice < 1 || choice > 3)
+                {
+                    Console.WriteLine("Error, choice isn't valid!");
+                }
+            }
+
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("How many person accounts are you creating today?");
+                    num_customers_person = int.Parse(Console.ReadLine());
+                    break;
+                case 2:
+                    Console.WriteLine("How many firm accounts are you creating today?");
+                    num_customers_firm = int.Parse(Console.ReadLine());
+                    break;
+                case 3:
+                    Console.WriteLine("How many person accounts are you creating today?");
+                    num_customers_person = int.Parse(Console.ReadLine());
+                    Console.WriteLine("How many firm accounts are you creating today?");
+                    num_customers_firm = int.Parse(Console.ReadLine());
+                    break;
+            }
+
+            Console.Clear();
+
+            if (num_customers_person > 0)
+            {
+                Person[] person = new Person[num_customers_person];
+
+                for (int i = 0; i < person.Length; i++)
+                {
+                    person[i] = new Person();
+                }
+
+                for (int i = 0; i < person.Length; i++)
+                {
+                    person[i].BalanceInfo();
+
+                    choice = 0;
+
+                    while (choice != 3)
+                    {
+                        Console.WriteLine("Do you want to change your balance?");
+                        Console.WriteLine("1. Deposit");
+                        Console.WriteLine("2. Withdraw");
+                        Console.WriteLine("3. No");
+                        choice = int.Parse(Console.ReadLine());
+
+                        Console.Clear();
+
+                        if (choice < 1 || choice > 3)
+                        {
+                            Console.WriteLine("Error, choice isn't valid!");
+                        }
+                        else if (choice == 1)
+                        {
+                            person[i].Deposit();
+                        }
+                        else if (choice == 2)
+                        {
+                            person[i].Withdraw();
+                        }
+                    }
+                }
+                Console.Clear();
+                for (int i = 0; i < person.Length; i++)
+                {
+                    person[i].Balance();
+                    person[i].InterestCredit();
+                    person[i].InterestDeposit();
+                    person[i].InterestMortgage();
+                }
+
+                if (num_customers_firm > 0)
+                {
+                    Console.WriteLine();
+
+                    Console.WriteLine("Press Enter to continue with next account...");
+                    Console.ReadLine();
+
+                    Console.Clear();
+                }
+            }
+
+            if (num_customers_firm > 0)
+            {
+                Firm[] firm = new Firm[num_customers_firm];
+
+                for (int i = 0; i < firm.Length; i++)
+                {
+                    firm[i] = new Firm();
+                }
+
+                for (int i = 0; i < firm.Length; i++)
+                {
+                    firm[i].BalanceInfo();
+
+                    choice = 0;
+
+                    while (choice != 3)
+                    {
+                        Console.WriteLine("Do you want to change your balance?");
+                        Console.WriteLine("1. Deposit");
+                        Console.WriteLine("2. Withdraw");
+                        Console.WriteLine("3. No");
+                        choice = int.Parse(Console.ReadLine());
+
+                        Console.Clear();
+
+                        if (choice < 1 || choice > 3)
+                        {
+                            Console.WriteLine("Error, choice isn't valid!");
+                        }
+                        else if (choice == 1)
+                        {
+                            firm[i].Deposit();
+                        }
+                        else if (choice == 2)
+                        {
+                            firm[i].Withdraw();
+                        }
+                    }
+                }
+                Console.Clear();
+                for (int i = 0; i < firm.Length; i++)
+                {
+                    firm[i].Balance();
+                    firm[i].InterestCredit();
+                    firm[i].InterestDeposit();
+                    firm[i].InterestMortgage();
+                }
+            }
+        }
+    }
+}
