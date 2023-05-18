@@ -12,12 +12,14 @@ namespace Person1
     {
         private const int MONTHS = 12;
         private double credit_balance, mortgage_balance;
-        
+
+        //Value initialization for fields
         public Person() : base()
         {
             credit_balance = mortgage_balance = 0;
         }
 
+        //Output customer name and balance
         public void Balance()
         {
             Console.WriteLine("Customer: " + customer);
@@ -26,6 +28,7 @@ namespace Person1
             Console.WriteLine("Mortgage balance: $" + mortgage_acc);
         }
 
+        //Interest calculation on credit balance
         public void InterestCredit()
         {
             credit_balance = credit_acc;
@@ -39,6 +42,7 @@ namespace Person1
             Console.WriteLine("You will need to pay in total $" + Math.Round(credit_acc - credit_balance, 2) + " in interest on the credit balance next year if no money is deposited or withdrawn.");
         }
 
+        //Interest calculation on mortgage balance
         public void InterestMortgage()
         {
             mortgage_balance = mortgage_acc;
