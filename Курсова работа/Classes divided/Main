@@ -16,6 +16,7 @@ namespace Bank
             int num_customers_person = 0, num_customers_firm = 0;
             int choice = 0;
 
+            //Choice type account creation
             while (choice < 1 || choice > 3)
             {
                 Console.WriteLine("What type of bank account do you want to create today");
@@ -32,6 +33,7 @@ namespace Bank
                 }
             }
 
+            //Picking number of accounts created
             switch (choice)
             {
                 case 1:
@@ -49,9 +51,9 @@ namespace Bank
                     num_customers_firm = int.Parse(Console.ReadLine());
                     break;
             }
-
             Console.Clear();
 
+            //Creating person accounts and using methods from classes
             if (num_customers_person > 0)
             {
                 Person[] person = new Person[num_customers_person];
@@ -111,6 +113,7 @@ namespace Bank
                 }
             }
 
+            //Creating firm accounts and using methods from classes
             if (num_customers_firm > 0)
             {
                 Firm[] firm = new Firm[num_customers_firm];
