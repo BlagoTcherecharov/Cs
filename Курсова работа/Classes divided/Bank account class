@@ -16,6 +16,7 @@ namespace Bank
         protected int choice;
         protected string[] name_choice = new string[] { "credit balance", "deposit balance", "mortgage balance" };
 
+        //Value initialization for fields
         public BankAccount()
         {
             error = false;
@@ -24,6 +25,7 @@ namespace Bank
             credit_acc = deposit_acc = mortgage_acc = monthly_interest_pourcentage = deposit_balance = deposit = withdraw = 0;
         }
 
+        //Input client name and bank account basic information
         public void BalanceInfo()
         {
             Console.Write("Enter name: ");
@@ -40,6 +42,7 @@ namespace Bank
             Console.Clear();
         }
 
+        //Choice balance where to deposit and how much to deposit
         public void Deposit()
         {
             while (error == false)
@@ -80,6 +83,7 @@ namespace Bank
             error = false;
         }
 
+        //How much to withdraw from deposit balance
         public void Withdraw()
         {
             do
@@ -98,6 +102,8 @@ namespace Bank
 
             deposit_acc -= withdraw;
         }
+
+        //Interest calculation on deposit balance
         public void InterestDeposit()
         {
             deposit_balance = deposit_acc;
