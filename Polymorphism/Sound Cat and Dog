@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Polymorphism
+{
+    class Pet
+    {
+        protected string name, sound;
+        protected int age;
+
+        public Pet() 
+        {
+            name = sound = string.Empty;
+            age = 0;
+        }
+
+        public virtual void Info()
+        {
+            Console.WriteLine("Animal name");
+            Console.WriteLine("Animal age");
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public int Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
+
+        public virtual string GetSound()
+        {
+            sound = "roar";
+            return sound;
+        }
+    }
+
+    class Dog : Pet
+    {
+        public override void Info()
+        {
+            Console.WriteLine(name);
+            Console.WriteLine(age);
+        }
+
+        public override string GetSound()
+        {
+            sound = "woof";
+            return sound;
+        }
+    }
+
+    class Cat : Pet
+    {
+        public override void Info()
+        {
+            Console.WriteLine(name);
+            Console.WriteLine(age);
+        }
+
+        public override string GetSound()
+        {
+            sound = "meow";
+            return sound;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Pet[] pets = { new Dog(), new Dog(), new Dog(), new Cat(), new Cat() };
+            for (int i = 0; i < pets.Length; i++)
+            {
+                Console.Write("Name: ");
+                pets[i].Name = Console.ReadLine();
+                Console.Write("Age: ");
+                pets[i].Age = int.Parse(Console.ReadLine());
+            }
+            Console.Clear();
+
+            foreach (Pet pet in pets)
+            {
+                pet.Info();
+                Console.WriteLine(pet.Name + " says " + pet.GetSound());
+            }
+        }
+    }
+}
