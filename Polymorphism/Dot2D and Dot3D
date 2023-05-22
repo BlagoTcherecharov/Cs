@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Polymorphism
+{
+    class Dot2D
+    {
+        protected int x, y;
+
+        public Dot2D()
+        {
+            x = y = 0;
+        }
+
+        public Dot2D(int x, int y) 
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public virtual void Output()
+        {
+            Console.WriteLine("Value of x is " + x);
+            Console.WriteLine("Value of y is " + y);
+        }
+    }
+
+    class Dot3D : Dot2D 
+    {
+        private int z;
+
+        public Dot3D() : base()
+        { 
+            z = 0;
+        }
+
+        public Dot3D(int x, int y, int z) : base(x, y)
+        {
+            this.z = z;
+        }
+
+        public override void Output()
+        {
+            Console.WriteLine("Value of x is " + x);
+            Console.WriteLine("Value of y is " + y);
+            Console.WriteLine("Value of y is " + z);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int x, y, z;
+
+            Dot2D dot = new Dot2D();
+            Dot3D dot1 = new Dot3D();
+
+            Console.Write("Enter value for x: ");
+            x = int.Parse(Console.ReadLine());
+            Console.Write("Enter value for y: ");
+            y = int.Parse(Console.ReadLine());
+            dot = new Dot2D(x, y);
+
+            Console.Write("Enter value for x: ");
+            x = int.Parse(Console.ReadLine());
+            Console.Write("Enter value for y: ");
+            y = int.Parse(Console.ReadLine());
+            Console.Write("Enter value for z: ");
+            z = int.Parse(Console.ReadLine());
+            dot1 = new Dot3D(x, y, z);
+
+            dot.Output();
+            dot1.Output();
+        }
+    }
+}
