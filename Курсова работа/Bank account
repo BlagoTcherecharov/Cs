@@ -5,15 +5,18 @@ using System.Xml;
 
 namespace Bank
 {
+    //Interface
     interface IInteraction
     {
+        //Abstract methods
         void Deposit();
         void Withdraw();
         void Balance();
         void InterestCredit();
         void InterestMortgage();
     }
-
+    
+    //Abstract class (Base class)
     abstract class BankAccount
     {
         private const int MONTHS = 12;
@@ -132,6 +135,7 @@ namespace Bank
         }
     }
 
+    //Derived class
     class Person : BankAccount, IInteraction
     {
         private const int MONTHS = 12;
@@ -181,6 +185,7 @@ namespace Bank
         }
     }
 
+    //Derived class
     class Firm : BankAccount, IInteraction
     {
         private const int MONTHS = 12;
