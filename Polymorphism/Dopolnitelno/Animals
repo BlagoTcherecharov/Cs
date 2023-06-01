@@ -1,0 +1,157 @@
+using Microsoft.VisualBasic.FileIO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Data;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dopolnitelno4
+{
+    abstract class Animal
+    {
+        protected string name, gender;
+        protected int age;
+
+        public virtual void Input()
+        {
+            Console.Write("Enter name: ");
+            name = Console.ReadLine();
+            Console.Write("Enter age: ");
+            age = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Pick gender:");
+            Console.WriteLine("1. Male");
+            Console.WriteLine("2. Female");
+            gender = Console.ReadLine();
+
+            Console.Clear();
+
+            if (gender == "1")
+            {
+                gender = "male";
+            }
+            else
+            {
+                gender = "female";
+            }
+        }
+
+        public void Output()
+        {
+            Console.WriteLine("It's name is " + name + ", is a " + gender + " and is " + age + " years old");
+        }
+
+        public abstract void Sound();
+    }
+
+    class Dog : Animal 
+    {
+        public override void Sound()
+        {
+            Console.WriteLine("The dog barks!");
+        }
+    }
+
+    class Frog : Animal
+    {
+        public override void Sound()
+        {
+            Console.WriteLine("The frog croaks!");
+        }
+    }
+
+    class Tomcat : Animal
+    {
+        public override void Input()
+        {
+            Console.Write("Enter name: ");
+            name = Console.ReadLine();
+            Console.Write("Enter age: ");
+            age = int.Parse(Console.ReadLine());
+
+            gender = "male";
+
+            Console.Clear();
+        }
+
+        public override void Sound()
+        {
+            Console.WriteLine("The tomcat yowls!");
+        }
+    }
+
+    class Cat : Tomcat
+    {
+        public override void Input()
+        {
+            Console.Write("Enter name: ");
+            name = Console.ReadLine();
+            Console.Write("Enter age: ");
+            age = int.Parse(Console.ReadLine());
+
+            gender = "female";
+
+            Console.Clear();
+        }
+
+        public override void Sound()
+        {
+            Console.WriteLine("The cat meows!");
+        }
+    }
+
+    class Kitten : Cat
+    {
+        public override void Input()
+        {
+            Console.Write("Enter name: ");
+            name = Console.ReadLine();
+            Console.Write("Enter age: ");
+            age = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Pick gender:");
+            Console.WriteLine("1. Male");
+            Console.WriteLine("2. Female");
+            gender = Console.ReadLine();
+
+            Console.Clear();
+
+            if (gender == "1")
+            {
+                gender = "male";
+            }
+            else
+            {
+                gender = "female";
+            }
+        }
+
+        public override void Sound()
+        {
+            Console.WriteLine("The kitten meows!");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Animal[] animals = { new Dog(), new Frog(), new Tomcat(), new Cat(), new Kitten() };
+
+            for (int i = 0; i < animals.Length; i++)
+            {
+                animals[i].Input();
+            }
+
+            for (int i = 0; i < animals.Length; i++)
+            {
+                animals[i].Output();
+                animals[i].Sound();
+            }
+        }
+    }
+}
