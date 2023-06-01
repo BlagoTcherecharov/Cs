@@ -1,22 +1,37 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Dopolnitelno2
 {
-    class Human
+    abstract class Human
     {
-        protected string name;
+        protected string firstname, lastname;
 
         public Human()
         {
-            name = " ";
+            firstname = lastname = " ";
         }
+
+        public void NameInput()
+        {
+            Console.Write("Enter first name: ");
+            firstname = Console.ReadLine();
+            Console.Write("Enter last name: ");
+            lastname = Console.ReadLine();
+        }
+
+        public abstract void Input();
+
+        public abstract void Output();
     }
 
-    class Student : Human
+    class Student : Human, IComparable<Student>
     {
         private int grade;
 
@@ -24,26 +39,95 @@ namespace Dopolnitelno2
         {
             grade = 0;
         }
+
+        public override void Input()
+        {
+            Console.Write("Enter grade: ");
+            grade = int.Parse(Console.ReadLine());
+        }
+
+        public int CompareTo(Student other)
+        {
+            if (other == null) return 1;
+
+            return this.grade.CompareTo(other.grade);
+        }
+
+        public override void Output()
+        {
+            Console.WriteLine(grade);
+        }
     }
 
-    class Worker : Human
+    class Worker : Human, IComparable<Worker>
     {
-        private double salary;
+        private double salary, hourly;
         private int hours;
 
         public Worker() : base()
         {
-            salary = 0;
+            salary = hourly = 0;
             hours = 0;
         }
 
+        public override void Input()
+        {
+            Console.Write("Enter daily salary: ");
+            salary = double.Parse(Console.ReadLine());
+            Console.Write("Enter hours worked in 1 day: ");
+            hours = int.Parse(Console.ReadLine());
+
+            hourly = salary / hours;
+        }
+
+        public int CompareTo(Worker other)
+        {
+            if (other == null) return 1;
+
+            return this.hourly.CompareTo(other.hourly);
+        }
+
+        public override void Output()
+        {
+            Console.WriteLine(hourly);
+        }
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            
+            Student[] students = new Student[10];
+            Worker[] workers = new Worker[10];
+
+            for (int i = 0; i < students.Length; i++)
+            {
+                students[i] = new Student();
+                students[i].NameInput();
+                students[i].Input();
+            }
+
+            for (int i = 0; i < workers.Length; i++)
+            {
+                workers[i] = new Worker();
+                workers[i].NameInput();
+                workers[i].Input();
+            }
+
+            Array.Sort(students);
+            Array.Reverse(workers);
+
+            Console.WriteLine("Grades in order: ");
+            for (int i = 0; i < students.Length; i++)
+            {
+                students[i].Output();
+            }
+
+            Console.WriteLine("Workers hourly wage in reverse order: ");
+            for (int i = 0; i < students.Length; i++)
+            {
+                workers[i].Output();
+            }
         }
     }
 }
