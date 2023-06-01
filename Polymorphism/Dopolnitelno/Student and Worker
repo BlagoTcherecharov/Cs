@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dopolnitelno2
+{
+    class Human
+    {
+        protected string name;
+
+        public Human()
+        {
+            name = " ";
+        }
+    }
+
+    class Student : Human
+    {
+        private int grade;
+
+        public Student() : base()
+        {
+            grade = 0;
+        }
+    }
+
+    class Worker : Human
+    {
+        private double salary;
+        private int hours;
+
+        public Worker() : base()
+        {
+            salary = 0;
+            hours = 0;
+        }
+
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+        }
+    }
+}
