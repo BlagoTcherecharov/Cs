@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dopolnitelno3
+{
+    abstract class Shape
+    {
+        protected double height, width, result;
+
+        public double Height
+        {
+            set { height = value; }
+        }
+
+        public double Width
+        {
+            set { width = value; }
+        }
+
+        public double Result
+        {
+            get { return result; }
+            set { result = value; }
+        }
+
+        public abstract double CalculateSurface();
+    }
+
+    class Triangle : Shape
+    {
+        public override double CalculateSurface()
+        {
+            return height * width / 2;
+        }
+    }
+
+    class Rectangle : Shape
+    {
+        public override double CalculateSurface()
+        {
+            return height * width;
+        }
+    }
+
+    class Circle : Shape
+    {
+        private double radius;
+
+        public override double CalculateSurface()
+        {
+            radius = height;
+            return radius * 2 * Math.PI;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Shape[] shape = { new Triangle(), new Rectangle(), new Circle() };
+
+            for (int i = 0; i < shape.Length; i++)
+            {
+                Console.Write("Enter height: ");
+                shape[i].Height = Convert.ToDouble(Console.ReadLine());
+                Console.Write("Enter width: ");
+                shape[i].Width = Convert.ToDouble(Console.ReadLine());
+            }
+
+            Shape[] results = { new Triangle(), new Rectangle(), new Circle() };
+
+            for (int i = 0; i < shape.Length; i++)
+            {
+                results[i].Result = shape[i].CalculateSurface();
+                Console.WriteLine(results[i].Result);
+            }
+        }
+    }
+}
