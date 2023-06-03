@@ -1,0 +1,149 @@
+using Microsoft.VisualBasic.FileIO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Data;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Dopolnitelno1
+{
+    class Class
+    {
+        protected string identifier;
+
+        public void InputIdentifier()
+        {
+            Console.Write("Enter class identifier: ");
+            identifier = Console.ReadLine();
+        }
+    }
+
+    class Human : Class
+    {
+        protected string name;
+
+        public virtual void InputName()
+        {
+            Console.Write("Enter name: ");
+            name = Console.ReadLine();
+        }
+
+        public virtual void Output() 
+        { 
+            Console.Clear();
+            Console.WriteLine("Class identifier is " + identifier);
+            Console.WriteLine("Name is " + name);
+        }
+    }
+
+    class Student : Human
+    {
+        private long unique_number;
+
+        public override void InputName()
+        {
+            Console.Write("Enter student's name: ");
+            name = Console.ReadLine();
+        }
+
+        public void InputNumber()
+        {
+            Console.Write("Enter student's unique number: ");
+            unique_number = int.Parse(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            Console.WriteLine("Class identifier is " + identifier);
+            Console.WriteLine("Student's name is " + name);
+            Console.WriteLine("Student's unique number is " + unique_number);
+        }
+    }
+
+    class Teacher : Human
+    {
+        private string class_name;
+        private int number_hours;
+
+        public override void InputName()
+        {
+            Console.Write("Enter teacher's name: ");
+            name = Console.ReadLine();
+        }
+
+        public void InputClass()
+        {
+            Console.Write("Enter the class name: ");
+            class_name = Console.ReadLine();
+        }
+
+        public void InputHours()
+        {
+            Console.Write("Enter the number of hours: ");
+            number_hours = int.Parse(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            Console.WriteLine("Class identifier is " + identifier);
+            Console.WriteLine("Teacher's name is " + name);
+            Console.WriteLine("Teacher's class is " + class_name);
+            Console.WriteLine("Teacher's number of hours is " + number_hours);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int number;
+
+            Console.Write("Enter number of teachers: ");
+            number = int.Parse(Console.ReadLine());
+
+            Teacher[] teachers = new Teacher[number];
+
+            Console.Write("Enter number of students: ");
+            number = int.Parse(Console.ReadLine());
+
+            Student[] students = new Student[number];
+
+            for (int i = 0; i < teachers.Length; i++)
+            {
+                teachers[i] = new Teacher();
+                teachers[i].InputIdentifier();
+                teachers[i].InputName();
+                teachers[i].InputClass();
+                teachers[i].InputHours();
+            }
+
+            for (int i = 0; i < students.Length; i++)
+            {
+                students[i] = new Student();
+                students[i].InputIdentifier();
+                students[i].InputName();
+                students[i].InputNumber();
+            }
+
+            Console.Clear();
+
+            foreach (Teacher teacher in teachers)
+            {
+                teacher.Output();
+
+                Console.WriteLine();
+            }
+
+            foreach (Student student in students)
+            {
+                student.Output();
+
+                Console.WriteLine();
+            }
+        }
+    }
+}
