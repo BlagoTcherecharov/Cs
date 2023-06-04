@@ -1,0 +1,14 @@
+I started by creating an ID card project.
+Then, I created a rectangle and chose a blue filling for it.
+I rounded the corners by dragging the circle on the top right of the rectangle. Next rectangles will have rounded corners.
+I created a smaller rectangle but filled it with a golden yellow color for the “Interac” logo. 
+I added a black text with the word “Interact”, font is “Serif” and size 12.
+I added that text on top of the yellow rectangle and used the rotation tool to rotate the text a bit.
+I then copied the rectangle and pasted it to create the chip.
+To fully create the chip, I added some lines with the Bezier straight lines on the newest rectangle.
+I added a grey filled text with black borders containing the word “WORLDBANK”. Both words are using the font “Arial” and have a size 12, but the word “WORLD” is using a “heavy” font style.
+I created a text with the same settings as above, but with the font “OCR A Extended”, with a size 16 and using a “normal” font size. This text was used for the credit card’s number. 
+I copied the text above and pasted it 2 times, the first one was for the card owner’s name and the second one for the expiration date. For the expiration date text, I changed the font size to 10.
+I used the Bezier curves tool to then create crescent moons for the contactless logo, the color is the same as the text. I copied and pasted the first crescent moon to create a couple more and then changed the size with the rectangles on the new crescent moon.
+I copy and paste the blue rectangle to create the backside of the credit card.
+I create a black rectangle for the magnetic stripe and change back the corners to 90°.
