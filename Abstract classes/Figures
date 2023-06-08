@@ -1,0 +1,157 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Figures
+{
+    abstract class Point
+    {
+        protected int x1, y1, x2, y2;
+
+        public Point()
+        {
+            x1 = y1 = x2 = y2 = 0;
+        }
+
+        public abstract void Input();
+
+        public abstract void Output();
+    }
+
+    class Square : Point
+    {
+        private int side;
+
+        public Square() : base()
+        {
+            side = 0;
+        }
+
+        public override void Input()
+        {
+            Console.Write("Enter first x: ");
+            x1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second x: ");
+            x2 = int.Parse(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            side = Math.Abs(x2 - x1);
+            Console.WriteLine("Surface of square is " + side * side);
+        }
+    }
+
+    class Rectangle : Point
+    {
+        private int side1, side2;
+
+        public Rectangle() : base()
+        {
+            side1 = side2 = 0;
+        }
+
+        public override void Input()
+        {
+            Console.Write("Enter first x: ");
+            x1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter first y: ");
+            y1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second x: ");
+            x2 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second y: ");
+            y2 = int.Parse(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            side1 = Math.Abs(x2 - x1);
+            side2 = Math.Abs(y2 - y1);
+            Console.WriteLine("Surface of rectangle is " + side1 * side2);
+        }
+    }
+
+    class Rhombus : Point
+    {
+        private int b, h;
+
+        public Rhombus() : base()
+        {
+            b = h = 0;
+        }
+
+        public override void Input()
+        {
+            Console.Write("Enter first x: ");
+            x1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter first y: ");
+            y1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second x: ");
+            x2 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second y: ");
+            y2 = int.Parse(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            b = Math.Abs(x2 - x1) * 2;
+            h = Math.Abs(y2 - y1) * 2;
+            Console.WriteLine("Surface of rhombus is " + b * h);
+        }
+    }
+
+    class Parallelogram : Point
+    {
+        private int b, h;
+
+        public Parallelogram() : base()
+        {
+            b = h = 0;
+        }
+
+        public override void Input()
+        {
+            Console.Write("Enter first x: ");
+            x1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter first y: ");
+            y1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second x: ");
+            x2 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second y: ");
+            y2 = int.Parse(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            b = Math.Abs(x2 - x1);
+            h = Math.Abs(y2 - y1);
+            Console.WriteLine("Surface of parallelogram is " + b * h);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Square square = new Square();
+            Rectangle rectangle = new Rectangle();
+            Rhombus rhombus = new Rhombus();
+            Parallelogram parallelogram = new Parallelogram();
+
+            Console.WriteLine("Square: ");
+            square.Input();
+            square.Output();
+            Console.WriteLine("Rectangle: ");
+            rectangle.Input();
+            rectangle.Output();
+            Console.WriteLine("Rhombus: ");
+            rhombus.Input();
+            rhombus.Output();
+            Console.WriteLine("Parallelogram: ");
+            parallelogram.Input();
+            parallelogram.Output();
+        }
+    }
+}
