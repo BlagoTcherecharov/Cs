@@ -1,0 +1,161 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Vehicules
+{
+    abstract class Vehicule
+    {
+        protected double top_speed, engine_size;
+
+        public Vehicule()
+        {
+            top_speed = engine_size = 0;
+        }
+
+        public abstract void Info();
+
+        public abstract void Output();
+    }
+
+    class Car : Vehicule
+    {
+        private int number_seats;
+
+        public Car() : base()
+        {
+            number_seats = 0;
+        }
+
+        public override void Info()
+        {
+            Console.Write("Enter the top speed of the car: ");
+            top_speed = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter the engine size of the car: ");
+            engine_size = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter the number of seats the car has: ");
+            number_seats = int.Parse(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            Console.WriteLine("Top speed of the car is " + top_speed + "km/h");
+            Console.WriteLine("Engine size of the car is " + engine_size + "L");
+            Console.WriteLine("The car has " + number_seats+ " seats");
+        }
+    }
+
+    class Bus : Vehicule
+    {
+        private int number_seats;
+
+        public Bus() : base()
+        {
+            number_seats = 0;
+        }
+
+        public override void Info()
+        {
+            Console.Write("Enter the top speed of the bus: ");
+            top_speed = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter the engine size of the bus: ");
+            engine_size = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter the number of seats the bus has: ");
+            number_seats = int.Parse(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            Console.WriteLine("Top speed of the bus is " + top_speed + "km/h");
+            Console.WriteLine("Engine size of the bus is " + engine_size + "L");
+            Console.WriteLine("The bus has " + number_seats + " seats");
+        }
+    }
+
+    class Truck : Vehicule
+    {
+        private double size, weight;
+
+        public Truck() : base()
+        {
+            size = weight = 0;
+        }
+
+        public override void Info()
+        {
+            Console.Write("Enter the top speed of the truck: ");
+            top_speed = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter the engine size of the truck: ");
+            engine_size = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter the size of the truck: ");
+            size = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter the weight of the truck: ");
+            weight = Convert.ToDouble(Console.ReadLine());
+        }
+
+        public override void Output()
+        {
+            Console.WriteLine("Top speed of the truck is " + top_speed + "km/h");
+            Console.WriteLine("Engine size of the truck is " + engine_size + "L");
+            Console.WriteLine("The size of the truck is " + size + "m");
+            Console.WriteLine("The weight of the truck is " + weight + "kg");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int choice;
+
+            Console.Write("Enter number of cars: ");
+            choice = int.Parse(Console.ReadLine());
+            Car[] car = new Car[choice];
+
+            Console.Write("Enter number of buses: ");
+            choice = int.Parse(Console.ReadLine());
+            Bus[] bus = new Bus[choice];
+
+            Console.Write("Enter number of trucks: ");
+            choice = int.Parse(Console.ReadLine());
+            Truck[] truck = new Truck[choice];
+
+            for (int i = 0; i < car.Length; i++)
+            {
+                car[i] = new Car();
+                car[i].Info();
+            }
+
+            for (int i = 0; i < bus.Length; i++)
+            {
+                bus[i] = new Bus();
+                bus[i].Info();
+            }
+
+            for (int i = 0; i < truck.Length; i++)
+            {
+                truck[i] = new Truck();
+                truck[i].Info();
+            }
+
+            Console.Clear();
+
+            foreach (Car cars in car)
+            {
+                cars.Output();
+            }
+
+            foreach (Bus buses in bus)
+            {
+                buses.Output();
+            }
+
+            foreach (Truck trucks in truck)
+            {
+                trucks.Output();
+            }
+        }
+    }
+}
