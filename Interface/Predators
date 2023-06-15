@@ -1,0 +1,118 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Predator
+{
+    interface IPredator
+    {
+        void Walk();
+        void Run();
+        void Nutrition();
+        void Rest();
+        void Sound();
+    }
+
+    class Tiger : IPredator
+    {
+        public void Walk()
+        {
+            Console.WriteLine("The tiger has a walking speed of 10 km/h");
+        }
+
+        public void Run()
+        {
+            Console.WriteLine("The tiger has a top speed of 60 km/h");
+        }
+
+        public void Nutrition()
+        {
+            Console.WriteLine("The tiger eats wild boars");
+        }
+
+        public void Rest()
+        {
+            Console.WriteLine("The tiger rests 18h/day");
+        }
+
+        public void Sound()
+        {
+            Console.WriteLine("Roar!");
+        }
+    }
+
+    class Lion : IPredator
+    {
+        public void Walk()
+        {
+            Console.WriteLine("The lion has a walking speed of 15 km/h");
+        }
+
+        public void Run()
+        {
+            Console.WriteLine("The lion has a top speed of 80 km/h");
+        }
+
+        public void Nutrition()
+        {
+            Console.WriteLine("The lion eats antelopes");
+        }
+
+        public void Rest()
+        {
+            Console.WriteLine("The lion rests 20h/day");
+        }
+
+        public void Sound()
+        {
+            Console.WriteLine("Roar!");
+        }
+    }
+
+    class Cat : IPredator
+    {
+        public void Walk()
+        {
+            Console.WriteLine("The cat has a walking speed of 5 km/h");
+        }
+
+        public void Run()
+        {
+            Console.WriteLine("The cat has a top speed of 48 km/h");
+        }
+
+        public void Nutrition()
+        {
+            Console.WriteLine("The cat eats chicken");
+        }
+
+        public void Rest()
+        {
+            Console.WriteLine("The cat rests 14h/day");
+        }
+
+        public void Sound()
+        {
+            Console.WriteLine("Meow!");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            IPredator[] predator = { new Tiger(), new Lion(), new Cat() };
+
+            foreach(IPredator predators in predator)
+            {
+                predators.Walk();
+                predators.Run();
+                predators.Nutrition();
+                predators.Rest();
+                predators.Sound();
+            }
+        }
+    }
+}
