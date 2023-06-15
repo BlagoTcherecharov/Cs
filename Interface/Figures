@@ -1,0 +1,180 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Figures
+{
+    interface IFigure
+    {
+        void Input();
+        void Output();
+        void Surface();
+    }
+
+    class Square : IFigure
+    {
+        private int side, x1, x2;
+
+        public Square()
+        {
+            side = x1 = x2 = 0;
+        }
+
+        public void Input()
+        {
+            Console.Write("Enter first x: ");
+            x1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second x: ");
+            x2 = int.Parse(Console.ReadLine());
+        }
+
+        public void Output()
+        {
+            side = Math.Abs(x2 - x1);
+            Console.WriteLine("Side: " + side);
+        }
+
+        public void Surface()
+        {
+            Console.WriteLine("Surface of square is " + side * side);
+        }
+    }
+
+    class Rectangle : IFigure
+    {
+        private int side1, side2, x1, x2, y1, y2;
+
+        public Rectangle()
+        {
+            side1 = side2 = x1 = x2 = y1 = y2 = 0;
+        }
+
+        public void Input()
+        {
+            Console.Write("Enter first x: ");
+            x1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter first y: ");
+            y1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second x: ");
+            x2 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second y: ");
+            y2 = int.Parse(Console.ReadLine());
+        }
+
+        public void Output()
+        {
+            side1 = Math.Abs(x2 - x1);
+            side2 = Math.Abs(y2 - y1);
+            Console.WriteLine("Side 1: " + side1);
+            Console.WriteLine("Side 2: " + side2);
+        }
+
+        public void Surface()
+        {
+            Console.WriteLine("Surface of rectangle is " + side1 * side2);
+        }
+    }
+
+    class Rhombus : IFigure
+    {
+        private int b, h , x1, x2, y1, y2;
+
+        public Rhombus()
+        {
+            b = h = x1 = x2 = y1 = y2 = 0;
+        }
+
+        public void Input()
+        {
+            Console.Write("Enter first x: ");
+            x1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter first y: ");
+            y1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second x: ");
+            x2 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second y: ");
+            y2 = int.Parse(Console.ReadLine());
+        }
+
+        public void Output()
+        {
+            b = Math.Abs(x2 - x1) * 2;
+            h = Math.Abs(y2 - y1) * 2;
+            Console.WriteLine("Base: " + b);
+            Console.WriteLine("Height: " + h);
+
+        }
+
+        public void Surface()
+        {
+            Console.WriteLine("Surface of rhombus is " + b * h);
+        }
+    }
+
+    class Parallelogram : IFigure
+    {
+        private int b, h , x1, x2, y1, y2;
+
+        public Parallelogram()
+        {
+            b = h = x1 = x2 = y1 = y2 = 0;
+        }
+
+        public void Input()
+        {
+            Console.Write("Enter first x: ");
+            x1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter first y: ");
+            y1 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second x: ");
+            x2 = int.Parse(Console.ReadLine());
+            Console.Write("Enter second y: ");
+            y2 = int.Parse(Console.ReadLine());
+        }
+
+        public void Output()
+        {
+            b = Math.Abs(x2 - x1) * 2;
+            h = Math.Abs(y2 - y1) * 2;
+            Console.WriteLine("Base: " + b);
+            Console.WriteLine("Height: " + h);
+        }
+
+        public void Surface()
+        {
+            b = Math.Abs(x2 - x1);
+            h = Math.Abs(y2 - y1);
+            Console.WriteLine("Surface of parallelogram is " + b * h);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Square square = new Square();
+            Rectangle rectangle = new Rectangle();
+            Rhombus rhombus = new Rhombus();
+            Parallelogram parallelogram = new Parallelogram();
+
+            Console.WriteLine("Square: ");
+            square.Input();
+            square.Output();
+            square.Surface();
+            Console.WriteLine("Rectangle: ");
+            rectangle.Input();
+            rectangle.Output();
+            rectangle.Surface();
+            Console.WriteLine("Rhombus: ");
+            rhombus.Input();
+            rhombus.Output();
+            rhombus.Surface();
+            Console.WriteLine("Parallelogram: ");
+            parallelogram.Input();
+            parallelogram.Output();
+            parallelogram.Surface();
+        }
+    }
+}
