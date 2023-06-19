@@ -1,0 +1,51 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TryCatch4
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] city = new string[] {"Gabrovo", "Plovdiv", "Troyan", "Sofia", "Varna"};
+
+            Array.Sort(city);
+
+            Console.WriteLine("Alphabetical order:");
+            foreach(string s in city)
+            {
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine("Reversed order:");
+            for (int i = city.Length - 1; i >= 0; i--)
+            {
+                Console.WriteLine(city[i]);
+            }
+
+            string name_city;
+            bool error = true;
+
+            Console.Write("Enter name of city: ");
+            name_city = Console.ReadLine();
+
+            try
+            {
+                for (int i = 0; i < city.Length; i++)
+                {
+                    if (name_city == city[i])
+                        error = false;
+                }
+                if(error == true)
+                    throw new IndexOutOfRangeException();
+            }
+            catch(IndexOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+    }
+}
