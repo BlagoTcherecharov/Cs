@@ -1,0 +1,97 @@
+using Microsoft.VisualBasic.FileIO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Data;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TryCatch5
+{
+    class Time
+    {
+        private int hour, minute, second;
+        private string time;
+
+        public int Hour
+        {
+            get { return hour; }
+            set { hour = value; }
+        }
+
+        public int Minute
+        {
+            get { return minute; }
+            set { minute = value; }
+        }
+
+        public int Second
+        {
+            get { return second; }
+            set { second = value; }
+        }
+
+        public void SetTime()
+        {
+            Console.Write("Enter time using the hh:mm:ss format: ");
+            time = Console.ReadLine();
+            string[] times = time.Split(":");
+
+            hour = int.Parse(times[0]);
+            minute = int.Parse(times[1]);
+            second = int.Parse(times[2]);
+        }
+
+        public void ShowTime()
+        {
+            Console.WriteLine("It's " + hour + ":" +  minute + ":" + second);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Time time = new Time();
+
+            bool error = true;
+
+            while (error)
+            {
+                time.SetTime();
+
+                Console.Clear();
+
+                try
+                {
+                    if (time.Hour < 0 || time.Hour > 23)
+                    {
+                        Console.WriteLine("Hour is not valid");
+                        throw new Exception();
+                    }
+                    else if (time.Minute < 0 || time.Minute > 59)
+                    {
+                        Console.WriteLine("Minutes are not valid");
+                        throw new Exception();
+                    }
+                    else if (time.Second < 0 || time.Second > 59)
+                    {
+                        Console.WriteLine("Seconds are not valid");
+                        throw new Exception();
+                    }
+                    else
+                        error = false;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+
+            time.ShowTime();
+        }
+    }
+}
